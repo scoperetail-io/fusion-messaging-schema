@@ -13,13 +13,36 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<jaxb2-maven-plugin.version>2.4</jaxb2-maven-plugin.version>
+		<jaxb.api.version>2.3.0</jaxb.api.version>
+		<lombok.version>1.18.12</lombok.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+			<version>2.4.5</version>
+		</dependency>
+		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
-			<version>2.3.1</version>
+			<version>${jaxb.api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-core</artifactId>
+			<version>${jaxb.api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version><!--$NO-MVN-MAN-VER$ -->
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>${jaxb.api.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -57,7 +80,7 @@
 								<xjbSource>src/main/resources/xjb/global.xjb</xjbSource>
 							</xjbSources>
 							<sources>
-								<source>src/main/resources/PickingOrderEvent_V1.2.xsd</source>
+								<source>src/main/resources/PickingOrderBeginEvent_V1.0.xsd</source>
 							</sources>
 							<packageName>com.scoperetail.fusion.messaging.schema.pick.begin</packageName>
 							<outputDirectory>${basedir}/target/generated-sources</outputDirectory>
@@ -74,7 +97,7 @@
 								<xjbSource>src/main/resources/xjb/global.xjb</xjbSource>
 							</xjbSources>
 							<sources>
-								<source>src/main/resources/PickOrderCompleteMessage_V1.0.xsd</source>
+								<source>src/main/resources/PickingSubSystemOrderCompleteMessage_V1.0.xsd</source>
 							</sources>
 							<packageName>com.scoperetail.fusion.messaging.schema.pick.end</packageName>
 							<outputDirectory>${basedir}/target/generated-sources</outputDirectory>
@@ -89,7 +112,15 @@
 				<configuration>
 					<source>8</source>
 					<target>8</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
+
 			</plugin>
 		</plugins>
 	</build>

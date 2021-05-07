@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns="http://www.xmlns.walmartstores.com/SuppyChain/FulfillmentManagement/GlobalIntegeratedFulfillment/Picking/SubsystemPickOrderComplete/1.0/"
+	xmlns="http://www.xmlns.walmartstores.com/SuppyChain/FulfillmentManagement/GlobalIntegeratedFulfillment/Picking/PickingSubSystemOrderComplete/1.0/"
 	xmlns:hdr="http://www.xmlns.walmartstores.com/Header/datatypes/MessageHeader/1.4/"
 	xmlns:flt="http://www.xmlns.walmartstores.com/Fault/datatypes/MessageFault/1.0/"
-	targetNamespace="http://www.xmlns.walmartstores.com/SuppyChain/FulfillmentManagement/GlobalIntegeratedFulfillment/Picking/SubsystemPickOrderComplete/1.0/"
+	targetNamespace="http://www.xmlns.walmartstores.com/SuppyChain/FulfillmentManagement/GlobalIntegeratedFulfillment/Picking/PickingSubSystemOrderComplete/1.0/"
 	elementFormDefault="qualified">
 
 	<xsd:import schemaLocation="MessageHeader_V1.4.xsd" namespace="http://www.xmlns.walmartstores.com/Header/datatypes/MessageHeader/1.4/"></xsd:import>
@@ -32,7 +32,7 @@
 	<xsd:complexType name="MessageBody">
 		<xsd:sequence>
 			<xsd:element name="RoutingInfo" type="RoutingInfo"></xsd:element>
-			<xsd:element name="PickOrderComplete" type="PickOrderComplete"></xsd:element>
+			<xsd:element name="PickingSubSystemOrderComplete" type="PickingSubSystemOrderComplete"></xsd:element>
 			<xsd:element name="MessageExtensions" type="MessageExtensions" minOccurs="0" maxOccurs="1"></xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
@@ -43,7 +43,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<xsd:complexType name="PickOrderComplete">
+	<xsd:complexType name="PickingSubSystemOrderComplete">
 		<xsd:sequence>
 			<xsd:element name="node" type="Node"></xsd:element>
 			<xsd:element name="fulfillmentOrder" type="FulfillmentOrder"></xsd:element>
@@ -132,7 +132,7 @@
 			</xsd:element>
 
     		<xsd:element name="pickQty" type="xsd:double"></xsd:element>
-    		<xsd:element name="pickWeight" type="xsd:double" maxOccurs="1" minOccurs="0"></xsd:element> <!-- Optional -->
+    		<xsd:element name="pickWeight" type="xsd:double" maxOccurs="0" minOccurs="0"></xsd:element> <!-- Optional -->
     		<xsd:element name="pickUom" type="xsd:string"></xsd:element> <!-- Optional -->
     		<xsd:element name="pickedUser" type="xsd:string"></xsd:element>
     		<xsd:element name="pickedTs" type="xsd:string">
@@ -141,30 +141,31 @@
 				</xsd:annotation>
 			</xsd:element>
     		<xsd:element name="pickUpcNbr" type="xsd:string"></xsd:element>
-    		<xsd:element name="pickPriceEmbeddedUpcNbr" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
-			<xsd:element name="container" type="Container" maxOccurs="1" minOccurs="0"></xsd:element>
+    		<xsd:element name="pickPriceEmbeddedUpcNbr" type="xsd:string"></xsd:element>
+    		<xsd:element name="container">
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string">
+							<xsd:attribute name="type" type="xsd:string" use="optional"></xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+
 			<xsd:element name="unitPrice" type="xsd:double"></xsd:element>
        		<xsd:element name="activationNbr" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
-    		<xsd:element name="expiryDate" type="xsd:string" maxOccurs="1" minOccurs="0">
+    		<xsd:element name="expiryDate" type="xsd:string">
 				<xsd:annotation>
 					<xsd:documentation>The date should be in the format yyyy-MM-dd'T'HH:mm:ss.SSSS Z e.g. 2014-02-06T19:09:00.000 -0600</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-    		<xsd:element name="freshnessDate" type="xsd:string" maxOccurs="1" minOccurs="0">
+    		<xsd:element name="freshnessDate" type="xsd:string">
 				<xsd:annotation>
 					<xsd:documentation>The date should be in the format yyyy-MM-dd'T'HH:mm:ss.SSSS Z e.g. 2014-02-06T19:09:00.000 -0600</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
 	    	</xsd:sequence>
     </xsd:complexType>
-
-	<xsd:complexType name="Container">
-		<xsd:sequence>
-			<xsd:element name="tempBandCd" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
-			<xsd:element name="containerNbr" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
-			<xsd:element name="location" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
-		</xsd:sequence>
-	</xsd:complexType>
 
 
 	<xsd:complexType name="Location">

@@ -1,29 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ This software is owned exclusively by Romaric Corporation.
-  ~ As such, this software may not be copied, modified, or
-  ~ distributed without express permission from Romaric.
-  ~
-  ~ Copyright (c) 2003-2017
-  ~ Romaric Corporation
-  ~ 8410 South 700 East Suite 201
-  ~ Sandy, UT  84070
-  ~ All Rights Reserved
-  -->
-
-<xsd:schema
+<xsd:schema 
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns="http://www.xmlns.walmartstores.com/SuppyChain/FulfillmentManagement/GlobalIntegeratedFulfillment/Picking/OrderEvent/1.2/"
+	xmlns="http://www.xmlns.walmartstores.com/SuppyChain/FulfillmentManagement/GlobalIntegeratedFulfillment/Picking/OrderBeginEvent/1.0/"
 	xmlns:hdr="http://www.xmlns.walmartstores.com/Header/datatypes/MessageHeader/1.4/"
 	xmlns:flt="http://www.xmlns.walmartstores.com/Fault/datatypes/MessageFault/1.0/"
-	targetNamespace="http://www.xmlns.walmartstores.com/SuppyChain/FulfillmentManagement/GlobalIntegeratedFulfillment/Picking/OrderEvent/1.2/"
+	targetNamespace="http://www.xmlns.walmartstores.com/SuppyChain/FulfillmentManagement/GlobalIntegeratedFulfillment/Picking/OrderBeginEvent/1.0/"
 	elementFormDefault="qualified">
-
-	<xsd:import namespace="http://www.xmlns.walmartstores.com/Header/datatypes/MessageHeader/1.4/" schemaLocation="MessageHeader_V1.4.xsd"></xsd:import>
-
+	
+	<xsd:import schemaLocation="MessageHeader_V1.4.xsd" namespace="http://www.xmlns.walmartstores.com/Header/datatypes/MessageHeader/1.4/"></xsd:import>
+	
 	<xsd:import namespace="http://www.xmlns.walmartstores.com/Fault/datatypes/MessageFault/1.0/" schemaLocation="MessageFault.xsd"></xsd:import>
-
-	<xsd:element name="Fault"> <!-- 7/3 EIC Change - Included -->
+		
+	<xsd:element name="Fault"> 
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element ref="hdr:MessageHeader"></xsd:element>
@@ -32,9 +20,9 @@
 		</xsd:complexType>
 	 </xsd:element>
 
-	<xsd:element name="pickingOrderEventMessage" type="PickingOrderEventMessage"></xsd:element>
+	<xsd:element name="pickingOrderBeginEventMessage" type="PickingOrderBeginEventMessage"></xsd:element>
 
-	<xsd:complexType name="PickingOrderEventMessage"> 
+	<xsd:complexType name="PickingOrderBeginEventMessage"> 
 		<xsd:sequence>
 			<xsd:element ref="hdr:MessageHeader"></xsd:element>
 			<xsd:element name="MessageBody" type="MessageBody"></xsd:element>
@@ -44,7 +32,7 @@
 	<xsd:complexType name="MessageBody">
 		<xsd:sequence>
 			<xsd:element name="RoutingInfo" type="RoutingInfo"></xsd:element>
-			<xsd:element name="orderEvent" type="PickingOrderEvent"></xsd:element>
+			<xsd:element name="orderBeginEvent" type="PickingOrderBeginEvent"></xsd:element>
 			<xsd:element name="MessageExtensions" type="MessageExtensions" minOccurs="0" maxOccurs="1"></xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
@@ -58,37 +46,9 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<xsd:complexType name="PickingOrderEvent"> <!-- 7/3 EIC Change - Prefixed picking -->
+	<xsd:complexType name="PickingOrderBeginEvent"> 
 		<xsd:sequence>
 			<xsd:element name="node" type="Node"></xsd:element>
-			<xsd:element name="orderEventType">
-				<xsd:simpleType>
-					<xsd:restriction base="xsd:string">
-						<xsd:enumeration value="ON_ORDER_RECEIVED">
-							<xsd:annotation>
-								<xsd:documentation>Sent from Node to HomeOffice after receiving the OrderReleased message from HomeOffice</xsd:documentation>
-							</xsd:annotation>
-						</xsd:enumeration>
-						<xsd:enumeration value="ON_ORDER_PICK_BEGIN">
-							<xsd:annotation>
-								<xsd:documentation>Sent from Node to HomeOffice once the first qty of the item is picked in an order</xsd:documentation>
-							</xsd:annotation>
-						</xsd:enumeration>
-						<xsd:enumeration value="ON_ORDER_UNASSIGNED">
-							<xsd:annotation>
-								<xsd:documentation>Sent from Node to HomeOffice once the order is un-assigned from the picker</xsd:documentation>
-							</xsd:annotation>
-						</xsd:enumeration>
-						<!-- R4.0 order update event change -->
-						<xsd:enumeration value="ON_ORDER_DETAILS_UPDATED">
-							<xsd:annotation>
-								<xsd:documentation>Sent from Node to HomeOffice after receiving the OrderUpdate message from HomeOffice</xsd:documentation>
-							</xsd:annotation>
-						</xsd:enumeration>
-						
-					</xsd:restriction>
-				</xsd:simpleType>
-			</xsd:element>
 			<xsd:element name="fulfillmentOrders" type="FulfillmentOrders"></xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
@@ -99,7 +59,7 @@
     	</xsd:sequence>
     </xsd:complexType>
 
-	<xsd:complexType name="SourceNode"> <!-- 6/3 EIC Change - Included -->
+	<xsd:complexType name="SourceNode"> 
 		<xsd:sequence>
 			<xsd:element name="location" type="Location"></xsd:element>
 			<xsd:choice>
@@ -138,11 +98,19 @@
     		<xsd:element name="value" type="Alpha255"></xsd:element>
     	</xsd:sequence>
     </xsd:complexType>
+    
+    <xsd:complexType name="FulfillmentOrder">
+    	<xsd:sequence>
+    		<xsd:element name="orderNbr" type="xsd:long"></xsd:element>
+		    <xsd:element name="priorityCode" type="xsd:long" minOccurs="0"></xsd:element>
+    		<xsd:element name="assignedPickUserId" type="Alpha20" minOccurs="0"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
 
     <xsd:complexType name="FulfillmentOrders">
     	<xsd:sequence>
-    		<xsd:element name="orderNbr" type="xsd:long" maxOccurs="unbounded" minOccurs="1"></xsd:element>
-    	</xsd:sequence>
+    		<xsd:element name="fulfillmentOrder" type="FulfillmentOrder" maxOccurs="unbounded"></xsd:element>   
+    	</xsd:sequence> 		
     </xsd:complexType>
 	
 	<xsd:complexType name="Location">
