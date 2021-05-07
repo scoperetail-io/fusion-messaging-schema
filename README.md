@@ -1,0 +1,1 @@
+# fusion-messaging-schema
