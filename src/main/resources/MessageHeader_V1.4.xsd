@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+   elementFormDefault="qualified" attributeFormDefault="qualified" blockDefault="#all"
+   targetNamespace="http://www.xmlns.walmartstores.com/Header/datatypes/MessageHeader/1.4/"
+   xmlns:hdr="http://www.xmlns.walmartstores.com/Header/datatypes/MessageHeader/1.4/">
+  <xsd:element name="MessageHeader" type="hdr:MessageHeader"/>
+  <xsd:complexType name="MessageHeader">
+    <xsd:sequence>
+      <xsd:element name="SubId" type="hdr:alpha255"/>
+      <xsd:element name="CnsmrId" type="hdr:alpha255"/>
+      <xsd:element name="SrvcNm" type="hdr:alpha255"/>
+      <xsd:element name="AppId" type="hdr:alpha255" minOccurs="0"/>
+      <xsd:element name="TranId" type="hdr:alpha255" minOccurs="0"/>
+      <xsd:element name="UsrNm" type="hdr:alpha255" minOccurs="0"/>
+      <xsd:element name="Pwd" type="hdr:alpha255" minOccurs="0"/>
+      <xsd:element name="SrcSysId" type="hdr:alpha255" minOccurs="0"/>
+      <xsd:element name="Version" type="hdr:alpha255"/>
+      <xsd:element name="ConfCd" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="hdr:alpha255">
+            <xsd:enumeration value="Always"/>
+            <xsd:enumeration value="ConfirmOnArrival"/>
+            <xsd:enumeration value="ConfirmOnDelivery"/>
+            <xsd:enumeration value="None"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+    <xsd:simpleType name="alpha255">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>

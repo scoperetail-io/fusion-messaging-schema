@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ This software is owned exclusively by Romaric Corporation.
+  ~ As such, this software may not be copied, modified, or
+  ~ distributed without express permission from Romaric.
+  ~
+  ~ Copyright (c) 2003-2017
+  ~ Romaric Corporation
+  ~ 8410 South 700 East Suite 201
+  ~ Sandy, UT  84070
+  ~ All Rights Reserved
+  -->
+
+<xsd:schema
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.xmlns.walmartstores.com/SuppyChain/FulfillmentManagement/GlobalIntegeratedFulfillment/Picking/OrderEvent/1.2/"
+	xmlns:hdr="http://www.xmlns.walmartstores.com/Header/datatypes/MessageHeader/1.4/"
+	xmlns:flt="http://www.xmlns.walmartstores.com/Fault/datatypes/MessageFault/1.0/"
+	targetNamespace="http://www.xmlns.walmartstores.com/SuppyChain/FulfillmentManagement/GlobalIntegeratedFulfillment/Picking/OrderEvent/1.2/"
+	elementFormDefault="qualified">
+
+	<xsd:import namespace="http://www.xmlns.walmartstores.com/Header/datatypes/MessageHeader/1.4/" schemaLocation="MessageHeader_V1.4.xsd"></xsd:import>
+
+	<xsd:import namespace="http://www.xmlns.walmartstores.com/Fault/datatypes/MessageFault/1.0/" schemaLocation="MessageFault.xsd"></xsd:import>
+
+	<xsd:element name="Fault"> <!-- 7/3 EIC Change - Included -->
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="hdr:MessageHeader"></xsd:element>
+				<xsd:element ref="flt:MessageFault"></xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	 </xsd:element>
+
+	<xsd:element name="pickingOrderEventMessage" type="PickingOrderEventMessage"></xsd:element>
+
+	<xsd:complexType name="PickingOrderEventMessage"> 
+		<xsd:sequence>
+			<xsd:element ref="hdr:MessageHeader"></xsd:element>
+			<xsd:element name="MessageBody" type="MessageBody"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="MessageBody">
+		<xsd:sequence>
+			<xsd:element name="RoutingInfo" type="RoutingInfo"></xsd:element>
+			<xsd:element name="orderEvent" type="PickingOrderEvent"></xsd:element>
+			<xsd:element name="MessageExtensions" type="MessageExtensions" minOccurs="0" maxOccurs="1"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RoutingInfo">
+		<xsd:annotation>
+			<xsd:documentation>@@Decision Pending - Consumer/Producer may not know about RoutingInfo. EIC team will confirm whether Consumer/Producer need to populate</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SourceNode" type="SourceNode"></xsd:element>
+			<xsd:element name="DestinationNode" type="DestinationNode"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="PickingOrderEvent"> <!-- 7/3 EIC Change - Prefixed picking -->
+		<xsd:sequence>
+			<xsd:element name="node" type="Node"></xsd:element>
+			<xsd:element name="orderEventType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="ON_ORDER_RECEIVED">
+							<xsd:annotation>
+								<xsd:documentation>Sent from Node to HomeOffice after receiving the OrderReleased message from HomeOffice</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="ON_ORDER_PICK_BEGIN">
+							<xsd:annotation>
+								<xsd:documentation>Sent from Node to HomeOffice once the first qty of the item is picked in an order</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="ON_ORDER_UNASSIGNED">
+							<xsd:annotation>
+								<xsd:documentation>Sent from Node to HomeOffice once the order is un-assigned from the picker</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<!-- R4.0 order update event change -->
+						<xsd:enumeration value="ON_ORDER_DETAILS_UPDATED">
+							<xsd:annotation>
+								<xsd:documentation>Sent from Node to HomeOffice after receiving the OrderUpdate message from HomeOffice</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="fulfillmentOrders" type="FulfillmentOrders"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+    <xsd:complexType name="MessageExtensions">
+    	<xsd:sequence>
+    		<xsd:element name="MessageExtension" type="MessageExtension" minOccurs="0" maxOccurs="5"></xsd:element> <!-- 7/3 EIC Change - First letter changed to CAPS -->
+    	</xsd:sequence>
+    </xsd:complexType>
+
+	<xsd:complexType name="SourceNode"> <!-- 6/3 EIC Change - Included -->
+		<xsd:sequence>
+			<xsd:element name="location" type="Location"></xsd:element>
+			<xsd:choice>
+				<xsd:element name="nodeID" type="xsd:unsignedInt"></xsd:element>
+				<xsd:element name="cNodeID" type="Alpha30">
+					<xsd:annotation>
+						<xsd:documentation>This will be populated as GIF-HO for the homeoffice component because there is no node id for the HomeOffice</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="type" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+		</xsd:sequence>		
+	</xsd:complexType>
+
+	<xsd:complexType name="DestinationNode"> <!-- 7/3 EIC Change - Included -->
+		<xsd:complexContent>
+			<xsd:extension base="SourceNode">
+				<xsd:sequence>
+					<xsd:element name="orderType" type="Alpha20" maxOccurs="1" minOccurs="0">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>		
+	</xsd:complexType>
+    
+    <xsd:complexType name="Node">
+    	<xsd:sequence>
+    		<xsd:element name="nodeId" type="xsd:integer"></xsd:element>
+    		<xsd:element name="countryCode" type="Alpha2"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="MessageExtension">
+    	<xsd:sequence>
+    		<xsd:element name="name" type="Alpha20"></xsd:element>
+    		<xsd:element name="value" type="Alpha255"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="FulfillmentOrders">
+    	<xsd:sequence>
+    		<xsd:element name="orderNbr" type="xsd:long" maxOccurs="unbounded" minOccurs="1"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+	
+	<xsd:complexType name="Location">
+		<xsd:sequence>
+			<xsd:element name="locationAddress" type="Address" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="countryCode" type="Alpha2"></xsd:element>
+			<xsd:element name="country" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="globalLocationNumber" type="xsd:unsignedLong" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="name" type="Alpha100" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="currencyCode" type="Alpha3" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="languageCode" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="geoCode" type="xsd:unsignedLong" maxOccurs="1" minOccurs="0"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>	
+
+	<xsd:complexType name="Address">
+		<xsd:sequence>
+			<xsd:element name="addressLine1" type="Alpha100" maxOccurs="1" minOccurs="0"></xsd:element> 
+			<xsd:element name="addressLine2" type="Alpha100" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="addressLine3" type="Alpha100" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="addressLine4" type="Alpha100" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="city" type="Alpha80" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="county" type="Alpha80" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="state" type="Alpha2" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="countryCode" type="Alpha2"></xsd:element>
+			<xsd:element name="zip" type="Alpha10" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="type" maxOccurs="1" minOccurs="0"> 
+				<xsd:simpleType>
+					<xsd:restriction base="Alpha20">
+						<xsd:enumeration value="business" />
+						<xsd:enumeration value="residential" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="Alpha2"> 
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>	
+	
+	<xsd:simpleType name="Alpha3"> 
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>	
+	
+	<xsd:simpleType name="Alpha10"> 
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>	
+	
+	<xsd:simpleType name="Alpha20"> 
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="20"/>
+		</xsd:restriction>
+	</xsd:simpleType>	
+	
+	<xsd:simpleType name="Alpha30"> 
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="30"/>
+		</xsd:restriction>
+	</xsd:simpleType>	
+	
+	<xsd:simpleType name="Alpha80"> 
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="80"/>
+		</xsd:restriction>
+	</xsd:simpleType>	
+	
+	<xsd:simpleType name="Alpha100"> 
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>	
+	
+	<xsd:simpleType name="Alpha255"> 
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>	
+</xsd:schema>
