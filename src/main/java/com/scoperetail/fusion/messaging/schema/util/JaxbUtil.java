@@ -1,7 +1,9 @@
+/* ScopeRetail (C)2021 */
 package com.scoperetail.fusion.messaging.schema.util;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import com.sun.xml.bind.marshaller.DataWriter;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,7 +12,6 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -21,33 +22,28 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-
-import org.xml.sax.SAXException;
-
-import com.sun.xml.bind.marshaller.DataWriter;
-
 import lombok.extern.slf4j.Slf4j;
+import org.xml.sax.SAXException;
 
 @Slf4j
 public class JaxbUtil {
-
 
   private static final Map<String, JAXBContext> contextMap = new HashMap<>(5);
 
   private JaxbUtil() {}
 
   public static Schema getSchema(final Class clazz, final String xsdName) throws SAXException {
-	    final SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-	    Schema schema = null;
-	    try {
-	      schema = sf.newSchema(clazz.getClassLoader().getResource(xsdName));
-	    } catch (final SAXException e) {
-	      log.error(e.getMessage(), e);
-	      throw e;
-	    }
-	    return schema;
-	  }
-  
+    final SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+    Schema schema = null;
+    try {
+      schema = sf.newSchema(clazz.getClassLoader().getResource(xsdName));
+    } catch (final SAXException e) {
+      log.error(e.getMessage(), e);
+      throw e;
+    }
+    return schema;
+  }
+
   /**
    * Validate the message based on XML schema
    *

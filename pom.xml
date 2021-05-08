@@ -12,7 +12,7 @@
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<jaxb2-maven-plugin.version>2.4</jaxb2-maven-plugin.version>
+		<jaxb2-maven-plugin.version>2.5.0</jaxb2-maven-plugin.version>
 		<jaxb.api.version>2.3.0</jaxb.api.version>
 		<lombok.version>1.18.12</lombok.version>
 	</properties>
@@ -66,7 +66,7 @@
 								<source>src/main/resources/MessageFault.xsd</source>
 							</sources>
 							<packageName>com.scoperetail.fusion.messaging.schema.common</packageName>
-							<outputDirectory>${basedir}/target/generated-sources</outputDirectory>
+							<outputDirectory>${basedir}/target/generated-sources/fusionschema/src/main/java</outputDirectory>
 							<clearOutputDir>false</clearOutputDir>
 						</configuration>
 					</execution>
@@ -83,7 +83,7 @@
 								<source>src/main/resources/PickingOrderBeginEvent_V1.0.xsd</source>
 							</sources>
 							<packageName>com.scoperetail.fusion.messaging.schema.pick.begin</packageName>
-							<outputDirectory>${basedir}/target/generated-sources</outputDirectory>
+							<outputDirectory>${basedir}/target/generated-sources/fusionschema/src/main/java</outputDirectory>
 							<clearOutputDir>false</clearOutputDir>
 						</configuration>
 					</execution>
@@ -93,6 +93,7 @@
 							<goal>xjc</goal>
 						</goals>
 						<configuration>
+
 							<xjbSources>
 								<xjbSource>src/main/resources/xjb/global.xjb</xjbSource>
 							</xjbSources>
@@ -100,28 +101,29 @@
 								<source>src/main/resources/PickingSubSystemOrderCompleteMessage_V1.0.xsd</source>
 							</sources>
 							<packageName>com.scoperetail.fusion.messaging.schema.pick.end</packageName>
-							<outputDirectory>${basedir}/target/generated-sources</outputDirectory>
+							<outputDirectory>${basedir}/target/generated-sources/fusionschema/src/main/java</outputDirectory>
 							<clearOutputDir>false</clearOutputDir>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
 				<configuration>
-					<source>8</source>
-					<target>8</target>
-					<annotationProcessorPaths>
-						<path>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-							<version>${lombok.version}</version>
-						</path>
-					</annotationProcessorPaths>
+					<release>11</release>
+					<generatedSourcesDirectory>${project.build.directory}/generated-sources</generatedSourcesDirectory>
 				</configuration>
-
 			</plugin>
+
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> 
+				<version>3.8.0</version> <configuration> <release>11</release> <annotationProcessorPaths> 
+				<path> <groupId>org.projectlombok</groupId> <artifactId>lombok</artifactId> 
+				<version>${lombok.version}</version> </path> </annotationProcessorPaths> 
+				<generatedSourcesDirectory>${project.build.directory}/generated-sources</generatedSourcesDirectory> 
+				</configuration> </plugin> -->
 		</plugins>
 	</build>
 

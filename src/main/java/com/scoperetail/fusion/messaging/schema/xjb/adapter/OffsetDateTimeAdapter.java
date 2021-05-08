@@ -1,3 +1,4 @@
+/* ScopeRetail (C)2021 */
 package com.scoperetail.fusion.messaging.schema.xjb.adapter;
 
 import static java.time.temporal.ChronoField.HOUR_OF_DAY;
@@ -9,7 +10,6 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Objects;
-
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 public class OffsetDateTimeAdapter extends XmlAdapter<String, OffsetDateTime> {
@@ -37,12 +37,12 @@ public class OffsetDateTimeAdapter extends XmlAdapter<String, OffsetDateTime> {
   }
 
   @Override
-  public String marshal(OffsetDateTime v) throws Exception {
+  public String marshal(final OffsetDateTime v) throws Exception {
     return Objects.nonNull(v) ? v.format(SCOPE_DATE_TIME_FORMATTER_WITH_MILLIS_AND_OFFSET) : null;
   }
 
   @Override
-  public OffsetDateTime unmarshal(String v) throws Exception {
+  public OffsetDateTime unmarshal(final String v) throws Exception {
     return OffsetDateTime.parse(v);
   }
 }

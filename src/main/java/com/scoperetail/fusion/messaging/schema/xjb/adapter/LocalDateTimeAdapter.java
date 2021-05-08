@@ -1,3 +1,4 @@
+/* ScopeRetail (C)2021 */
 package com.scoperetail.fusion.messaging.schema.xjb.adapter;
 
 import static java.time.temporal.ChronoField.HOUR_OF_DAY;
@@ -8,7 +9,6 @@ import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /** Convert XML <code>xs:dateTime</code> to <code>java.time.LocalDateTime</code> */
@@ -42,8 +42,7 @@ public class LocalDateTimeAdapter extends XmlAdapter<String, LocalDateTime> {
   public String marshal(final LocalDateTime v) throws Exception {
     if (v != null) {
       return v.format(SCOPE_DATE_TIME_FORMATTER_WITH_MILLIS);
-    } else {
-      return null;
     }
+    return null;
   }
 }
