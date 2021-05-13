@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.scoperetail.fusion</groupId>
 	<artifactId>fusion-messaging-schema</artifactId>
-	<version>0.4-SNAPSHOT</version>
+	<version>0.4</version>
 	<name>fusion-messaging-schema</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -30,7 +30,7 @@
 		<developerConnection>
 			scm:git:git@github.com:scoperetail-io/fusion-messaging-schema.git
 		</developerConnection>
-		<tag>HEAD</tag>
+		<tag>fusion-messaging-schema-0.4</tag>
 	</scm>
 
 	<dependencies>
