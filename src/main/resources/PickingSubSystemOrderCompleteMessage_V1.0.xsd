@@ -32,7 +32,7 @@
 	<xsd:complexType name="MessageBody">
 		<xsd:sequence>
 			<xsd:element name="RoutingInfo" type="RoutingInfo"></xsd:element>
-			<xsd:element name="PickingSubSystemOrderComplete" type="PickingSubSystemOrderComplete"></xsd:element>
+			<xsd:element name="PickOrderComplete" type="PickOrderComplete"></xsd:element>
 			<xsd:element name="MessageExtensions" type="MessageExtensions" minOccurs="0" maxOccurs="1"></xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
@@ -43,7 +43,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<xsd:complexType name="PickingSubSystemOrderComplete">
+	<xsd:complexType name="PickOrderComplete">
 		<xsd:sequence>
 			<xsd:element name="node" type="Node"></xsd:element>
 			<xsd:element name="fulfillmentOrder" type="FulfillmentOrder"></xsd:element>
@@ -141,7 +141,7 @@
 				</xsd:annotation>
 			</xsd:element>
     		<xsd:element name="pickUpcNbr" type="xsd:string"></xsd:element>
-    		<xsd:element name="pickPriceEmbeddedUpcNbr" type="xsd:string"></xsd:element>
+    		<xsd:element name="pickPriceEmbeddedUpcNbr" type="xsd:string" minOccurs="0"></xsd:element>
 			<xsd:element name="container">
 				<xsd:complexType>
 					<xsd:sequence>
@@ -154,12 +154,12 @@
 
 			<xsd:element name="unitPrice" type="xsd:double"></xsd:element>
        		<xsd:element name="activationNbr" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
-    		<xsd:element name="expiryDate" type="xsd:string">
+    		<xsd:element name="expiryDate" type="xsd:string" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>The date should be in the format yyyy-MM-dd'T'HH:mm:ss.SSSS Z e.g. 2014-02-06T19:09:00.000 -0600</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-    		<xsd:element name="freshnessDate" type="xsd:string">
+    		<xsd:element name="freshnessDate" type="xsd:string" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>The date should be in the format yyyy-MM-dd'T'HH:mm:ss.SSSS Z e.g. 2014-02-06T19:09:00.000 -0600</xsd:documentation>
 				</xsd:annotation>
