@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns="http://www.xmlns.walmartstores.com/SuppyChain/FulfillmentManagement/GlobalIntegeratedFulfillment/Picking/PickingSubSystemOrderComplete/1.0/"
+	xmlns="http://www.xmlns.walmartstores.com/SuppyChain/FulfillmentManagement/GlobalIntegeratedFulfillment/Picking/SubsystemPickOrderComplete/1.0/"
 	xmlns:hdr="http://www.xmlns.walmartstores.com/Header/datatypes/MessageHeader/1.4/"
 	xmlns:flt="http://www.xmlns.walmartstores.com/Fault/datatypes/MessageFault/1.0/"
-	targetNamespace="http://www.xmlns.walmartstores.com/SuppyChain/FulfillmentManagement/GlobalIntegeratedFulfillment/Picking/PickingSubSystemOrderComplete/1.0/"
+	targetNamespace="http://www.xmlns.walmartstores.com/SuppyChain/FulfillmentManagement/GlobalIntegeratedFulfillment/Picking/SubsystemPickOrderComplete/1.0/"
 	elementFormDefault="qualified">
 
 	<xsd:import schemaLocation="MessageHeader_V1.4.xsd" namespace="http://www.xmlns.walmartstores.com/Header/datatypes/MessageHeader/1.4/"></xsd:import>
