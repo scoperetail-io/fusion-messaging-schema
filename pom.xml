@@ -70,7 +70,7 @@
 				<version>${jaxb2-maven-plugin.version}</version>
 				<executions>
 					<execution>
-						<id>xjc-messaging-order</id>
+						<id>xjc-messaging-common</id>
 						<goals>
 							<goal>xjc</goal>
 						</goals>
