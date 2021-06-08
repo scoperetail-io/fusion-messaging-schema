@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Perform Maven Release
           command:  |
-            if [[ "$CIRCLE_BRANCH" = "master" ]]
+            if [[ "$CIRCLE_BRANCH" = "master" || "$CIRCLE_BRANCH" == *"HOTFIX-"* ]]
             then
                     git config --global user.email "tushar.agrawal@scoperetail.com"
                     git config --global user.name "scoperetail"
