@@ -109,6 +109,7 @@
     		<xsd:element name="lineNbr" type="xsd:integer"></xsd:element>
     		<xsd:element name="orderedQty" type="xsd:double"></xsd:element>
     		<xsd:element name="orderedWeight" type="xsd:double" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="allLocationsVisited" type="xsd:boolean" maxOccurs="1" minOccurs="0" default="true"></xsd:element>
        		<xsd:element name="pickDetails" type="PickDetails" maxOccurs="unbounded" minOccurs="1"></xsd:element>
     	</xsd:sequence>
     </xsd:complexType>
