@@ -1,4 +1,3 @@
-/* ScopeRetail (C)2021 */
 package com.scoperetail.fusion.messaging.schema.xjb.adapter;
 
 import java.time.OffsetTime;

@@ -1,4 +1,3 @@
-/* ScopeRetail (C)2021 */
 package com.scoperetail.fusion.messaging.schema.xjb.adapter;
 
 import static java.time.temporal.ChronoField.HOUR_OF_DAY;

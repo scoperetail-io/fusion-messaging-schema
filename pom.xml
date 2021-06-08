@@ -5,7 +5,7 @@
 	<artifactId>fusion-messaging-schema</artifactId>
 	<version>0.8-SNAPSHOT</version>
 	<name>fusion-messaging-schema</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Messaging schema project</description>
 
 	<properties>
 		<java.version>1.11</java.version>
@@ -52,7 +52,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>${lombok.version}</version><!--$NO-MVN-MAN-VER$ -->
+			<version>${lombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -70,7 +70,7 @@
 				<version>${jaxb2-maven-plugin.version}</version>
 				<executions>
 					<execution>
-						<id>xjc-messaging-common</id>
+						<id>xjc-messaging-order</id>
 						<goals>
 							<goal>xjc</goal>
 						</goals>
@@ -79,46 +79,10 @@
 								<xjbSource>src/main/resources/xjb/global.xjb</xjbSource>
 							</xjbSources>
 							<sources>
-								<source>src/main/resources/MessageHeader_V1.4.xsd</source>
-								<source>src/main/resources/MessageFault.xsd</source>
+								<source>src/main/resources/Order_Message.xsd</source>
 							</sources>
-							<packageName>com.scoperetail.fusion.messaging.schema.common</packageName>
-							<outputDirectory>${basedir}/target/generated-sources/fusionschema/src/main/java</outputDirectory>
-							<clearOutputDir>false</clearOutputDir>
-						</configuration>
-					</execution>
-					<execution>
-						<id>xjc-messaging-pick-begin</id>
-						<goals>
-							<goal>xjc</goal>
-						</goals>
-						<configuration>
-							<xjbSources>
-								<xjbSource>src/main/resources/xjb/global.xjb</xjbSource>
-							</xjbSources>
-							<sources>
-								<source>src/main/resources/PickingOrderBeginEvent_V1.0.xsd</source>
-							</sources>
-							<packageName>com.scoperetail.fusion.messaging.schema.pick.begin</packageName>
-							<outputDirectory>${basedir}/target/generated-sources/fusionschema/src/main/java</outputDirectory>
-							<clearOutputDir>false</clearOutputDir>
-						</configuration>
-					</execution>
-					<execution>
-						<id>xjc-messaging-pick-end</id>
-						<goals>
-							<goal>xjc</goal>
-						</goals>
-						<configuration>
-
-							<xjbSources>
-								<xjbSource>src/main/resources/xjb/global.xjb</xjbSource>
-							</xjbSources>
-							<sources>
-								<source>src/main/resources/PickingSubSystemOrderCompleteMessage_V1.0.xsd</source>
-							</sources>
-							<packageName>com.scoperetail.fusion.messaging.schema.pick.end</packageName>
-							<outputDirectory>${basedir}/target/generated-sources/fusionschema/src/main/java</outputDirectory>
+							<packageName>com.scoperetail.fusion.messaging.schema.order</packageName>
+							<outputDirectory>${basedir}/target/generated-sources/src/main/java</outputDirectory>
 							<clearOutputDir>false</clearOutputDir>
 						</configuration>
 					</execution>
@@ -163,12 +127,6 @@
 					<scmCommentPrefix>[skip ci]</scmCommentPrefix>
 				</configuration>
 			</plugin>
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version> <configuration> <release>11</release> <annotationProcessorPaths> 
-				<path> <groupId>org.projectlombok</groupId> <artifactId>lombok</artifactId> 
-				<version>${lombok.version}</version> </path> </annotationProcessorPaths> 
-				<generatedSourcesDirectory>${project.build.directory}/generated-sources</generatedSourcesDirectory> 
-				</configuration> </plugin> -->
 		</plugins>
 	</build>
 
