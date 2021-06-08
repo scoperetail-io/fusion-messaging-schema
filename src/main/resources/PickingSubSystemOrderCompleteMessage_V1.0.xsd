@@ -142,7 +142,7 @@
 			</xsd:element>
     		<xsd:element name="pickUpcNbr" type="xsd:string"></xsd:element>
     		<xsd:element name="pickPriceEmbeddedUpcNbr" type="xsd:string" minOccurs="0"></xsd:element>
-			<xsd:element name="container">
+			<xsd:element name="container" minOccurs="0" maxOccurs="1">
 				<xsd:complexType>
 					<xsd:sequence>
 						<xsd:element name="tempBandCd" type="xsd:string"/>
