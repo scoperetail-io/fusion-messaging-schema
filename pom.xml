@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.scoperetail.fusion</groupId>
 	<artifactId>fusion-messaging-schema</artifactId>
-	<version>0.10</version>
+	<version>0.11-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<url>https://github.com/scoperetail-io/${project.artifactId}</url>
 	<description>Messaging schema project</description>
@@ -24,7 +24,7 @@
 		<developerConnection>
             scm:git:git@github.com:scoperetail-io/${project.artifactId}.git
         </developerConnection>
-		<tag>fusion-messaging-schema-0.10</tag>
+		<tag>fusion-messaging-schema-0.1</tag>
 		<url>https://github.com/scoperetail-io/${project.artifactId}</url>
 	</scm>
 
